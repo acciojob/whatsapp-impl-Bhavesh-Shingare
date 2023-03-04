@@ -94,8 +94,18 @@ public class WhatsappRepository {
         if(!groupUserMap.get(group).contains(user))
             throw new Exception("User is not a participant");
 
-//        adminMap.replace(group,user);
-//        return "SUCCESS";
+        adminMap.replace(group,user);
+        return "SUCCESS";
     }
 
+//    public int removeUser(User user) throws Exception{
+//
+//        for(Group grp : groupUserMap.keySet()){
+//            List<User> list = groupUserMap.get(grp);
+//            if(list.contains(user)){
+//                if()
+//            }
+//        }
+//
+//    }
 }
