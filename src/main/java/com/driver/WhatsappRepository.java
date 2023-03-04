@@ -54,7 +54,7 @@ public class WhatsappRepository {
         }
         else{
             customGroupCount++;
-            Group grp = new Group("Group"+customGroupCount, users.size());
+            Group grp = new Group("Group "+customGroupCount, users.size());
             groupUserMap.put(grp,users);
             groupMessageMap.put(grp, new ArrayList<>());
             return grp;
@@ -74,7 +74,7 @@ public class WhatsappRepository {
             throw new Exception("Group does not exist");
 
         if(!groupUserMap.get(group).contains(sender)){
-            throw new Exception("You are not a member of the group");
+            throw new Exception("You are not allowed to send message");
         }
 
         List<Message> messageList = groupMessageMap.get(group);
@@ -89,7 +89,7 @@ public class WhatsappRepository {
             throw new Exception("Group does not exist");
 
         if(adminMap.get(group)!= approver)
-            throw new Exception("Approver does not exist");
+            throw new Exception("Approver does not have rights");
 
         if(!groupUserMap.get(group).contains(user))
             throw new Exception("User is not a participant");
