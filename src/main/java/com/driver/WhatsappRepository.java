@@ -26,4 +26,76 @@ public class WhatsappRepository {
         this.customGroupCount = 0;
         this.messageId = 0;
     }
+
+    public String createUser(String name, String mobile){
+        try {
+            if(userMobile.contains(mobile)){
+                throw new Exception("Mobile Number Already Exists");
+            }
+            else{
+                User newUser = new User(name, mobile);
+                userMobile.add(mobile);
+            }
+
+        }
+        catch (Exception e){
+            e.getMessage();
+        }
+        return "SUCCESS";
+
+    }
+
+    public Group createGroup(List<User> users) {
+        if(users.size()==2){
+            Group grp = new Group(users.get(1).getName(), 2);
+            groupUserMap.put(grp,users);
+            groupMessageMap.put(grp, new ArrayList<>());
+            return grp;
+        }
+        else{
+            customGroupCount++;
+            Group grp = new Group("Group"+customGroupCount, users.size());
+            groupUserMap.put(grp,users);
+            groupMessageMap.put(grp, new ArrayList<>());
+            return grp;
+        }
+    }
+
+    public int createMessage(String content) {
+        messageId++;
+
+        Message msg = new Message(messageId,content);
+        return msg.getId();
+
+    }
+
+    public int sendMessage(Message message, User sender, Group group) throws  Exception {
+        if(!groupUserMap.containsKey(group))
+            throw new Exception("Group does not exist");
+
+        if(!groupUserMap.get(group).contains(sender)){
+            throw new Exception("You are not a member of the group");
+        }
+
+        List<Message> messageList = groupMessageMap.get(group);
+        groupMessageMap.put(group,messageList);
+
+        return groupMessageMap.get(group).size();
+
+    }
+
+    public String changeAdmin(User approver, User user, Group group) throws Exception {
+        if(!groupUserMap.containsKey(group))
+            throw new Exception("Group does not exist");
+
+        if(adminMap.get(group)!= approver)
+            throw new Exception("Approver does not exist");
+
+        if(!groupUserMap.get(group).contains(user))
+            throw new Exception("User is not a participant");
+
+//        adminMap.replace(group,user);
+//        return "SUCCESS";
+    }
+
 }
