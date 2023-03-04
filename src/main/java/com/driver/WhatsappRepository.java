@@ -98,14 +98,21 @@ public class WhatsappRepository {
         return "SUCCESS";
     }
 
-//    public int removeUser(User user) throws Exception{
-//
-//        for(Group grp : groupUserMap.keySet()){
-//            List<User> list = groupUserMap.get(grp);
-//            if(list.contains(user)){
-//                if()
-//            }
-//        }
+
+    public int removeUser(User user) throws Exception{
+
+        for(Group grp : groupUserMap.keySet()){
+            List<User> list = groupUserMap.get(grp);
+            if(list.contains(user)){
+
+            }
+        }
+        return 1;
 //
 //    }
 }
+
+    public String findMessage(Date start, Date end, int k) {
+        return "end";
+    }
+    }
